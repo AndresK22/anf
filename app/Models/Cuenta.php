@@ -9,10 +9,9 @@ class Cuenta extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
         'tipo_cuenta_id',
         'empresa_id',
-        'cuentaEquivalente_id',
+        'cuenta_equivalente_id',
         'nombreCuenta'
     ];
 
@@ -24,6 +23,10 @@ class Cuenta extends Model
     public function cuentaEquivalente()
     {
         return $this->belongsTo(CuentaEquivalente::class);
+    }
+    public function TipoCuenta()
+    {
+        return $this->belongsTo(TipoCuenta::class);
     }
 
 }

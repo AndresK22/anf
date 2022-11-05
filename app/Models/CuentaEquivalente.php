@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class CuentaEquivalente extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'idCuentaEquivalente',
+        'nombreCuentaEq'
+    ];
+
+    public function Cuenta(){
+        return $this->hasMany(Cuenta::class);
+    }
 }

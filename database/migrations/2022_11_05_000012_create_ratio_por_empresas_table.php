@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\CuentaEquivalente;
+use App\Models\Ratio;
 use App\Models\Empresa;
-use App\Models\TipoCuenta;
+use App\Models\PeriodoContable;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,14 +16,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cuentas', function (Blueprint $table) {
+        Schema::create('ratio_por_empresas', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Ratio::class)->references('id')->on('ratios');
+            $table->foreignIdFor(PeriodoContable::class)->references('id')->on('periodo_contables');
             $table->foreignIdFor(Empresa::class)->references('id')->on('empresas');
-            $table->foreignIdFor(CuentaEquivalente::class)->references('id')->on('cuenta_equivalentes');
-            $table->foreignIdFor(TipoCuenta::class)->references('id')->on('tipo_cuentas');
-            $table->string('nombreCuenta',100)->nullable();
+            $table->decimal('valor', 12, 2)->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cuentas');
+        Schema::dropIfExists('ratio_por_empresas');
     }
 };

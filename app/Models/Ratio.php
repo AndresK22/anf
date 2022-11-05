@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sector extends Model
+class Ratio extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombreSector'
+        'nombreRatio',
     ];
 
-    public function Empresa(){
-        return $this->hasMany(Empresa::class);
+    public function Cuenta(){
+        return $this->hasMany(RatioPorEmpresa::class);
     }
-    public function RatioPorSector(){
+    public function PeriodoContable(){
         return $this->hasMany(RatioPorSector::class);
     }
-    
 }

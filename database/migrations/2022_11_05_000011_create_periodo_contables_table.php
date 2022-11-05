@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_cuentas', function (Blueprint $table) {
+        Schema::create('periodo_contables', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreTipoCuenta',100)->nullable();
-            $table->softDeletes();
+            $table->string('anio', 4);
+            $table->date('desde');
+            $table->date('hasta');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_cuentas');
+        Schema::dropIfExists('periodo_contables');
     }
 };

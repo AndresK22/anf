@@ -9,7 +9,6 @@ class Empresa extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
         'sector_id',
         'nombreEmpresa'
     ];
@@ -17,5 +16,13 @@ class Empresa extends Model
     public function sector()
     {
         return $this->belongsTo(Sector::class);
+    }
+    public function Cuenta()
+    {
+        return $this->hasMany(Cuenta::class);
+    }
+    public function RatioPorEmpresa()
+    {
+        return $this->hasMany(RatioPorEmpresa::class);
     }
 }
