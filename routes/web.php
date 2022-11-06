@@ -26,5 +26,5 @@ Route::get('/admin', function () {
 
 Route::get('cuenta', [CuentaController::class,'index'])->name('cuenta.index');
 //crear
-Route::get('cuenta/crear', [CuentaController::class,'create'])->name('cuenta.create');
+Route::get('cuenta/crear/{empresa}', [CuentaController::class,'create'])->name('cuenta.create');
 Route::post('cuenta',[CuentaController::class,'store'])->name('cuenta.store');

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuenta;
+use App\Models\CuentaEquivalente;
 use App\Models\Empresa;
 use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CuentaController extends Controller
 {
@@ -30,12 +33,22 @@ class CuentaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Empresa $empresa)
     {
 
         try{
+            $id = $empresa->id;
+            $e = Cuenta::where('empresa_id',$id)->get();
+            $activo=Cuenta::where('tipo_cuenta_id',1)->where('empresa_id',$id)->get() ;
+            $pasivo=Cuenta::where('tipo_cuenta_id',2)->where('empresa_id',$id)->get();
+            $patrimonio=Cuenta::where('tipo_cuenta_id',3)->where('empresa_id',$id)->get();
+            $cuentaDeu=Cuenta::where('tipo_cuenta_id',4)->where('empresa_id',$id)->get();
+            $cuentaAcre=Cuenta::where('tipo_cuenta_id',5)->where('empresa_id',$id)->get();
+
             $tipoEmpresas = TipoCuenta::all();
-            return view('cuenta.create', compact('tipoEmpresas'));
+            $cuentaEqui = CuentaEquivalente::all();
+            return view('cuenta.create', compact('tipoEmpresas' , 'cuentaEqui', 'id','activo','pasivo','patrimonio','cuentaDeu','cuentaAcre'));
+
 
         }catch(\Exception $e){
             return $e->getMessage();
@@ -51,8 +64,20 @@ class CuentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        return redirect()->route('cuenta.create',$request);
+        
+        try{
+        $cuenta= new Cuenta();
+        $cuenta->idCuenta = $request->idCuenta;
+        $cuenta->empresa_id = $request->empresa_id;
+        $cuenta->tipo_cuenta_id= $request->tipo_cuenta_id;
+        $cuenta->cuenta_equivalente_id= $request->cuenta_equivalente_id;
+        $cuenta->nombreCuenta= $request->nombreCuenta;
+
+        $cuenta->save();
+        return redirect()->route('cuenta.create',$request->empresa_id);
+    }catch(\Exception $e){
+        return $e->getMessage();
+    }
 
     }
 

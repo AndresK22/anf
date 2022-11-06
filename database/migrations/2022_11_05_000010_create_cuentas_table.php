@@ -18,6 +18,7 @@ return new class extends Migration
     {
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
+            $table->string('idCuenta',20);
             $table->foreignIdFor(Empresa::class)->references('id')->on('empresas');
             $table->foreignIdFor(TipoCuenta::class)->references('id')->on('tipo_cuentas');
             $table->foreignIdFor(CuentaEquivalente::class)->references('id')->on('cuenta_equivalentes');
