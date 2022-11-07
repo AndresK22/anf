@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\CuentaPorPeriodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,3 +42,16 @@ Route::get('empresa/edit/{empresa}', [EmpresaController::class,'edit'])->name('e
 Route::put('empresa/update/{empresa}', [EmpresaController::class,'update'])->name('empresa.update');
 //Eliminar
 Route::get('empresa/destroy/{empresa}', [EmpresaController::class,'destroy'])->name('empresa.destroy');
+
+
+//----------------------------  Llenar saldos ----------------------------------------------
+//listar
+Route::get('cuentaPeriodo', [CuentaPorPeriodoController::class,'index'])->name('cuentaPeriodo.index');
+//Crear
+Route::post('cuentaPeriodo/create', [CuentaPorPeriodoController::class,'create'])->name('cuentaPeriodo.create');
+Route::post('cuentaPeriodo/store/{empresa}/{periodo}',[CuentaPorPeriodoController::class,'store'])->name('cuentaPeriodo.store');
+//actualizar
+Route::get('cuentaPeriodo/edit/{idCuPe}', [CuentaPorPeriodoController::class,'edit'])->name('cuentaPeriodo.edit');
+Route::put('cuentaPeriodo/update/{idCuPe}', [CuentaPorPeriodoController::class,'update'])->name('cuentaPeriodo.update');
+//Eliminar
+Route::get('cuentaPeriodo/destroy/{idCuPe}', [CuentaPorPeriodoController::class,'destroy'])->name('cuentaPeriodo.destroy');
